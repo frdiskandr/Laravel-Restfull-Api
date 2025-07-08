@@ -1,201 +1,168 @@
 {
-    "openapi": "3.0.0",
-    "info": {
-        "title": "Laravel OpenApi Demo Documentation",
-        "description": "L5 Swagger OpenApi description",
-        "contact": {
-            "email": "admin@admin.com"
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Contact API",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/contact": {
+      "post": {
+        "summary": "Create new contact",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Contact"
+              }
+            }
+          }
         },
-        "license": {
-            "name": "Apache 2.0",
-            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
-        },
-        "version": "1.0.0"
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        }
+      }
     },
-    "servers": [
-        {
-            "url": "http://my-default-host.com",
-            "description": "Demo API Server"
+    "/api/contacts": {
+      "get": {
+        "summary": "Get all contacts",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
         }
-    ],
-    "paths": {
-        "/api/users/register": {
-            "post": {
-                "tags": [
-                    "User"
-                ],
-                "summary": "Register a new user",
-                "operationId": "1df9bf349699d6de2e6c306499ee71ef",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "username",
-                                    "password",
-                                    "name"
-                                ],
-                                "properties": {
-                                    "username": {
-                                        "type": "string",
-                                        "example": "testuser"
-                                    },
-                                    "password": {
-                                        "type": "string",
-                                        "format": "password",
-                                        "example": "password"
-                                    },
-                                    "name": {
-                                        "type": "string",
-                                        "example": "Test User"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "User registered successfully"
-                    },
-                    "400": {
-                        "description": "Bad request"
-                    }
-                }
-            }
-        },
-        "/api/users/login": {
-            "post": {
-                "tags": [
-                    "User"
-                ],
-                "summary": "Login a user",
-                "operationId": "e7a377530f4b250da42ad2b352677c70",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "username",
-                                    "password"
-                                ],
-                                "properties": {
-                                    "username": {
-                                        "type": "string",
-                                        "example": "testuser"
-                                    },
-                                    "password": {
-                                        "type": "string",
-                                        "format": "password",
-                                        "example": "password"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "User logged in successfully"
-                    },
-                    "400": {
-                        "description": "Bad request"
-                    }
-                }
-            }
-        },
-        "/api/users": {
-            "get": {
-                "tags": [
-                    "User"
-                ],
-                "summary": "Get current user",
-                "operationId": "1220a4932df6efe4ae941d02849f7233",
-                "responses": {
-                    "200": {
-                        "description": "Successful operation"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            },
-            "patch": {
-                "tags": [
-                    "User"
-                ],
-                "summary": "Update current user",
-                "operationId": "35ddf5b50bb791fec3ba46316a447c64",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "name": {
-                                        "type": "string",
-                                        "example": "Test User"
-                                    },
-                                    "password": {
-                                        "type": "string",
-                                        "format": "password",
-                                        "example": "newpassword"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Successful operation"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        },
-        "/api/users/logout": {
-            "post": {
-                "tags": [
-                    "User"
-                ],
-                "summary": "Logout a user",
-                "operationId": "1bfd9cf658a8dfb397cad59535357d57",
-                "responses": {
-                    "200": {
-                        "description": "User logged out successfully"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        }
+      }
     },
-    "components": {
-        "securitySchemes": {
-            "bearerAuth": {
-                "type": "http",
-                "scheme": "bearer"
+    "/api/contact/{id}": {
+      "get": {
+        "summary": "Get contact by id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
             }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
         }
+      },
+      "patch": {
+        "summary": "Update contact",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Contact"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete contact",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
     },
-    "tags": [
-        {
-            "name": "User",
-            "description": "User"
+    "/api/contacts/search": {
+      "get": {
+        "summary": "Search contact",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "email",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "phone",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
         }
-    ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Contact": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
 }

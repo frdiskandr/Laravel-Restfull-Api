@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\ApiAuthMiddleware;
@@ -14,6 +15,7 @@ Route::post("/users/register", [UserController::class, 'Register']);
 Route::post("/users/login", [UserController::class, 'Login']);
 
 Route::middleware(ApiAuthMiddleware::class)->group(function(){
+    // user
     Route::get('/users', [UserController::class, 'Get']);
     Route::patch('/users', [UserController::class, 'Update']);
     Route::post('/users/logout', [UserController::class, 'Logout']);
@@ -24,5 +26,11 @@ Route::middleware(ApiAuthMiddleware::class)->group(function(){
     Route::patch("/contact/{id}", [ContactController::class, "Update"]);
     Route::delete("/contact/{id}", [ContactController::class, "Delete"]);
     Route::get("/contacts/search", [ContactController::class, "Search"]);
+    // Addresses for a contact
+    Route::post('/contacts/{contactId}/addresses', [AddressController::class, 'create']);
+    Route::get('/contacts/{contactId}/addresses', [AddressController::class, 'list']);
+    Route::get('/contacts/{contactId}/addresses/{addressId}', [AddressController::class, 'get']);
+    Route::put('/contacts/{contactId}/addresses/{addressId}', [AddressController::class, 'update']);
+    Route::delete('/contacts/{contactId}/addresses/{addressId}', [AddressController::class, 'delete']);
 });
 

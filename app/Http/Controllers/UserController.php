@@ -12,6 +12,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Routing\Controller;
 
 /**
  * @OA\Info(
@@ -38,7 +39,7 @@ use Illuminate\Support\Str;
  *      scheme="bearer"
  * )
  */
-class UserController
+class UserController extends Controller
 {
     /**
      * @OA\Post(
